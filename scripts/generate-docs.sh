@@ -388,3 +388,53 @@ STYLE
 ```
 END
 }
+
+generate_footer() {
+    cat << 'FOOTER'
+
+---
+
+## 🔗 참고
+
+- [Tailscale ACL 문서](https://tailscale.com/kb/1018/acls/)
+- [SSH 설명서](https://tailscale.com/kb/1193/tailscale-ssh/)
+- [policy.hujson](../policy.hujson)
+
+---
+*이 문서는 \`scripts/generate-docs.sh\`에 의해 자동 생성되었습니다.*
+FOOTER
+}
+
+generate_document() {
+    log_info "Generating documentation..."
+
+    {
+        generate_header
+        echo ""
+        generate_groups_section
+        echo ""
+        generate_tags_section
+        echo ""
+        generate_acls_section
+        echo ""
+        generate_ssh_section
+        echo ""
+        generate_diagram
+        echo ""
+        generate_footer
+    } > "$OUTPUT_DIR/acl.md"
+
+    log_info "✓ Documentation generated: $OUTPUT_DIR/acl.md"
+}
+
+main() {
+    validate_all
+    generate_document
+
+    if [[ "$VERBOSE" == "true" ]]; then
+        cat "$OUTPUT_DIR/acl.md"
+    fi
+}
+
+# 메인 함수 호출
+main "$@"
