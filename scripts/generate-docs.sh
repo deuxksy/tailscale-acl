@@ -327,3 +327,64 @@ generate_ssh_section() {
 
     echo -e "$output"
 }
+
+generate_diagram() {
+    cat << 'DIAGRAM'
+## 📊 네트워크 연결 다이어그램
+
+```mermaid
+graph TB
+    subgraph "그룹"
+DIAGRAM
+
+    # 그룹 노드
+    while IFS='|' read -r group members; do
+        local node_id="${group//group:/G-}"
+        echo "        $node_id[\"$group\"]"
+    done < <(parse_groups)
+
+    cat << 'DIAGRAM2'
+    end
+
+    subgraph "태그"
+DIAGRAM2
+
+    # 태그 노드
+    hujson_to_json "$POLICY_FILE" | jq -r '.tagOwners | keys[]' | while read -r tag; do
+        local node_id="${tag//tag:/T-}"
+        echo "        $node_id[\"$tag\"]"
+    done
+
+    cat << 'DIAGRAM3'
+    end
+
+DIAGRAM3
+
+    # 소유권 연결
+    hujson_to_json "$POLICY_FILE" | jq -r '.tagOwners | to_entries[] | "\(.key)|\(.value[])"' | while IFS='|' read -r tag owner; do
+        local tag_id="${tag//tag:/T-}"
+        if [[ "$owner" == group:* ]]; then
+            local owner_id="${owner//group:/G-}"
+            echo "    $owner_id -->|소유| $tag_id"
+        else
+            echo "    auto-$owner[\"$owner\"] -->|소유| $tag_id"
+        fi
+    done
+
+    cat << 'STYLE'
+
+    classDef groupStyle fill:#e1f5fe,stroke:#01579b
+    classDef tagStyle fill:#f3e5f5,stroke:#4a148c
+
+STYLE
+
+    # 클래스 적용
+    local groups=$(parse_groups | cut -d'|' -f1 | sed 's/group:/G-/g' | tr '\n' ' ')
+    local tags=$(hujson_to_json "$POLICY_FILE" | jq -r '.tagOwners | keys[]' | sed 's/tag:/T-/g' | tr '\n' ' ')
+    echo "    class $groups groupStyle"
+    echo "    class $tags tagStyle"
+
+    cat << 'END'
+```
+END
+}
