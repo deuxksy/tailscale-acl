@@ -269,3 +269,15 @@ generate_header() {
 
 HEADER
 }
+
+generate_groups_section() {
+    local output="## 👥 그룹 및 사용자\n\n"
+    output+="| 그룹 | 사용자 |\n"
+    output+="|------|--------|\n"
+
+    while IFS='|' read -r group members; do
+        output+="| \`$group\` | $members |\n"
+    done < <(parse_groups)
+
+    echo -e "$output"
+}
