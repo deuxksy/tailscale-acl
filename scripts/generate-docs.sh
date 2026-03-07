@@ -226,3 +226,46 @@ parse_ssh() {
     hujson_to_json "$POLICY_FILE" | jq -r '.ssh[] |
         "\(.action)|\(.src | join(", "))|\(.dst | join(", "))|\(.users | join(", "))"'
 }
+
+# Markdown generation functions
+get_metadata() {
+    local commit_hash
+    local commit_date
+    local author
+
+    if git rev-parse --git-dir > /dev/null 2>&1; then
+        commit_hash=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
+        commit_date=$(git log -1 --format="%ci" 2>/dev/null || echo "unknown")
+        author=$(git log -1 --format="%an" 2>/dev/null || echo "unknown")
+    else
+        commit_hash="unknown"
+        commit_date=$(date +%Y-%m-%d)
+        author="unknown"
+    fi
+
+    echo "$commit_hash|$commit_date|$author"
+}
+
+generate_header() {
+    local metadata
+    local commit_hash
+    local commit_date
+    local author
+
+    metadata=$(get_metadata)
+    IFS='|' read -r commit_hash commit_date author <<< "$metadata"
+
+    cat << HEADER
+# Tailscale ACL 문서
+
+> 자동 생성일: $commit_date
+> 커밋: \`$commit_hash\` ($author)
+
+---
+
+## 📋 개요
+
+이 문서는 Tailscale ACL 정책(\`policy.hujson\`)을 기반으로 자동 생성되었습니다.
+
+HEADER
+}
