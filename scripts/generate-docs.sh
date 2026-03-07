@@ -197,3 +197,32 @@ validate_all() {
     check_output_dir
     log_info "✓ All validations passed"
 }
+
+# Parser functions
+parse_groups() {
+    log_verbose "Parsing groups..."
+
+    hujson_to_json "$POLICY_FILE" | jq -r '.groups | to_entries[] |
+        "\(.key)|\(.value | join(", "))"'
+}
+
+parse_tag_owners() {
+    log_verbose "Parsing tag owners..."
+
+    hujson_to_json "$POLICY_FILE" | jq -r '.tagOwners | to_entries[] |
+        "\(.key)|\(.value | join(", "))"'
+}
+
+parse_acls() {
+    log_verbose "Parsing ACL rules..."
+
+    hujson_to_json "$POLICY_FILE" | jq -r '.acls[] |
+        "\(.src | join(", "))|\(.dst | join(", "))|\(.action)"'
+}
+
+parse_ssh() {
+    log_verbose "Parsing SSH rules..."
+
+    hujson_to_json "$POLICY_FILE" | jq -r '.ssh[] |
+        "\(.action)|\(.src | join(", "))|\(.dst | join(", "))|\(.users | join(", "))"'
+}
