@@ -281,3 +281,15 @@ generate_groups_section() {
 
     echo -e "$output"
 }
+
+generate_tags_section() {
+    local output="## 🏷️ 태그 및 소유자\n\n"
+    output+="| 태그 | 소유자 |\n"
+    output+="|------|--------|\n"
+
+    while IFS='|' read -r tag owners; do
+        output+="| \`$tag\` | $owners |\n"
+    done < <(parse_tag_owners)
+
+    echo -e "$output"
+}
