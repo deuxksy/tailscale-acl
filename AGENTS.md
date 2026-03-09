@@ -1,1 +1,1 @@
-/home/crong/git/tailscale-acl/.ai/AGENTS.md
+./.ai/AGENTS.md
