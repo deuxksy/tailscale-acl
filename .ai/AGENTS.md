@@ -11,7 +11,7 @@ sylph/
 │   └── generate-docs.sh   # ACL 문서 자동 생성 스크립트
 ├── .github/
 │   └── workflows/
-│       └── sylph.yml          # GitHub Actions 워크플로우
+│       └── tailscale-acl.yml  # GitHub Actions 워크플로우
 └── docs/
     └── plans/             # 프로젝트 계획 문서
 ```
@@ -28,7 +28,7 @@ sylph/
 - PR 주석 diff 생성 가능
 - 의존성: jq, json5 (Python 패키지)
 
-### .github/workflows/sylph.yml
+### .github/workflows/tailscale-acl.yml
 - policy.hujson 변경 시 자동으로 ACL 테스트 및 적용
 - PR 단계: 문법 및 정책 테스트만 수행
 - main 브랜치 병합 시: 실제 Tailscale에 ACL 적용
