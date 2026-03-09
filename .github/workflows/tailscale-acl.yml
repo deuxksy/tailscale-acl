@@ -21,7 +21,7 @@ jobs:
       - name: Test ACL
         uses: tailscale/gitops-acl-action@v1
         with:
-          tailnet: ZZiZiLY
+          tailnet: TY1qnFMXke11CNTRL
           oauth-client-id: ${{ secrets.TS_API_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_API_CLIENT_SECRET }}
           policy-file: policy.hujson
@@ -38,7 +38,7 @@ jobs:
       - name: Apply ACL
         uses: tailscale/gitops-acl-action@v1
         with:
-          tailnet: ZZiZiLY
+          tailnet: TY1qnFMXke11CNTRL
           oauth-client-id: ${{ secrets.TS_API_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_API_CLIENT_SECRET }}
           policy-file: policy.hujson
