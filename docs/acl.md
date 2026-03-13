@@ -1,7 +1,7 @@
 # Tailscale ACL 문서
 
-> 자동 생성일: 2026-03-07 22:04:57 +0700
-> 커밋: `7a35f6b` (Crong)
+> 자동 생성일: 2026-03-13 14:42:04 +0700
+> 커밋: `a231c32` (Crong)
 
 ---
 
@@ -14,7 +14,6 @@
 
 | 그룹 | 사용자 |
 |------|--------|
-| `🔍 Parsing groups...` |  |
 | `group:admin` | ksymailing@gmail.com |
 | `group:member` | deuxksy@gmail.com |
 | `group:develop` | deuxksy@gmail.com |
@@ -24,7 +23,6 @@
 
 | 태그 | 소유자 |
 |------|--------|
-| `🔍 Parsing tag owners...` |  |
 | `tag:https` | group:admin, autogroup:admin |
 | `tag:docker` | group:admin, autogroup:admin |
 | `tag:heritage` | group:admin, autogroup:admin |
@@ -32,13 +30,14 @@
 | `tag:server` | group:admin, autogroup:admin |
 | `tag:network` | group:admin, autogroup:admin |
 | `tag:pc` | group:admin, autogroup:admin |
+| `tag:ai` | group:admin, autogroup:admin |
 
 
 ## 🔐 ACL 규칙
 
 | 소스 | 대상 | 액션 |
 |------|------|------|
-| `🔍 Parsing ACL rules...` | `` |  |
+| `*` | `tag:ai:*` | accept |
 | `*` | `*:*` | accept |
 
 
@@ -46,7 +45,6 @@
 
 | 액션 | 소스 | 대상 | 허용 사용자 |
 |------|------|------|-------------|
-| 🔍 Parsing SSH rules... | `` | `` | `` |
 | accept | `group:admin, group:member, group:develop` | `tag:server, tag:network, autogroup:self` | `autogroup:nonroot, crong, deck` |
 
 
@@ -55,13 +53,13 @@
 ```mermaid
 graph TB
     subgraph "그룹"
-        🔍 Parsing groups...["🔍 Parsing groups..."]
         G-admin["group:admin"]
         G-member["group:member"]
         G-develop["group:develop"]
     end
 
     subgraph "태그"
+        T-ai["tag:ai"]
         T-docker["tag:docker"]
         T-heritage["tag:heritage"]
         T-https["tag:https"]
@@ -85,12 +83,14 @@ graph TB
     auto-autogroup:admin["autogroup:admin"] -->|소유| T-network
     G-admin -->|소유| T-pc
     auto-autogroup:admin["autogroup:admin"] -->|소유| T-pc
+    G-admin -->|소유| T-ai
+    auto-autogroup:admin["autogroup:admin"] -->|소유| T-ai
 
     classDef groupStyle fill:#e1f5fe,stroke:#01579b
     classDef tagStyle fill:#f3e5f5,stroke:#4a148c
 
-    class 🔍 Parsing groups... G-admin G-member G-develop  groupStyle
-    class T-docker T-heritage T-https T-mobile T-network T-pc T-server  tagStyle
+    class G-admin G-member G-develop  groupStyle
+    class T-ai T-docker T-heritage T-https T-mobile T-network T-pc T-server  tagStyle
 ```
 
 
