@@ -24,6 +24,10 @@ graph TB
             S2[WALL.E<br/>Linux<br/>🌐 Exit Node]
         end
 
+        subgraph "AI (tag:ai)"
+            AI1[ai<br/>Linux<br/>🤖 Aperture<br/>LLM Gateway]
+        end
+
         subgraph "Docker (tag:docker)"
             I1[heritage<br/>Linux<br/>🔌 Serve<br/>⚡ Ephemeral]
         end
@@ -46,9 +50,25 @@ graph TB
     style PC2 fill:#f3e5f5
     style S1 fill:#fff3e0
     style S2 fill:#ffebee
+    style AI1 fill:#e3f2fd
     style I1 fill:#e8f5e9
     style I2 fill:#e8f5e9
 ```
+
+## Hardware Specs
+
+| 장비 | 하드웨어 | OS | 특이사항 |
+|------|----------|-----|----------|
+| **EVE** | Mac Mini 2024, M4, 16GB | macOS | 전기양 서버 |
+| **WALL.E** | Intel N100, 8GB | Fedora 43 | 🌐 Exit Node |
+| **arv** | ARMv8, 512MB | OpenWrt | 🔌 Funnel, Subnet Router |
+| **ai** | - | Linux | 🤖 Aperture, LLM Gateway |
+| Girl | - | Linux | Server |
+| heritage | - | Linux | Docker, Ephemeral |
+| iPhone | - | iOS | Mobile |
+| iPad | - | iOS | Mobile |
+| Galaxy | - | Android | Mobile |
+| Surface | - | Windows | PC |
 
 ## Workflow
 
