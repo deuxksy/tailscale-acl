@@ -13,6 +13,7 @@
 		"tag:server":   ["group:admin", "autogroup:admin"],
 		"tag:network":  ["group:admin", "autogroup:admin"],
 		"tag:pc":       ["group:admin", "autogroup:admin"],
+		"tag:ai":       ["group:admin", "autogroup:admin"],
 	},
 
 	"nodeAttrs": [
@@ -36,6 +37,12 @@
 	],
 
 	"acls": [
+		// Aperture (AI Gateway) 접근 허용
+		{
+			"action": "accept",
+			"src":    ["*"],
+			"dst":    ["tag:ai:*"],
+		},
 		// 내부망 통신 허용 (Private Mesh)
 		{
 			"action": "accept",
