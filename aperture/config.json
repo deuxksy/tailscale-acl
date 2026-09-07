@@ -50,7 +50,7 @@
             "apikey": ""
         },
         "KiMi-Cloud-OpenAI": {
-            "baseurl": "https://api.kimi.com/coding/v1",
+            "baseurl": "https://api.kimi.com/coding",
             "models": [
                 "k3",
                 "k3-256k",
@@ -64,31 +64,27 @@
             "preference": 78,
             "apikey": ""
         },
-        "ZAI-Cloud-Anthropic": {
-            "baseurl": "https://api.z.ai/api/anthropic",
+        "Alibaba-Cloud-OpenAI": {
+            "baseurl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
             "models": [
-                "claude-opus-4-6",
-                "claude-sonnet-4-6",
-                "claude-haiku-4-5",
-                "claude-sonnet-4-5-20250929",
-                "glm-5-turbo",
-                "glm-5.1",
-                "glm-5",
-                "glm-4.7",
-                "glm-4.5-air"
+                "qwen-max",
+                "qwen-plus",
+                "qwen-turbo",
+                "qwen3.8-max",
+                "qwen3.5-397b"
             ],
-            "authorization": "x-api-key",
+            "authorization": "bearer",
             "compatibility": {
-                "anthropic_messages": true
+                "openai_chat": true
             },
-            "name": "Z.AI",
-            "preference": 89,
+            "name": "Alibaba Qwen",
+            "preference": 69,
             "apikey": ""
         },
         "LiteLLM": {
             "baseurl": "http://lllm:4000",
             "models": [
-                "google/gemma-4-26b-a4b-qat"
+                "google/gemma-4-12b-it"
             ],
             "authorization": "bearer",
             "compatibility": {
